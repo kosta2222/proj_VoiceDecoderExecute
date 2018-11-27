@@ -1,0 +1,49 @@
+﻿<html>
+    <head>
+        <meta charset="utf-8">
+        <script src="./static/annyang.min.js"></script>
+        <script src="./static/jquery-3.0.0.min.js"></script>
+
+    </head>
+    <body>
+        <script>
+            if (annyang) {
+                var commands = {
+                    "Запустить блокнот":func_zapuskBlokn_sVrV,
+                    "Закрыть блокнот": func_zakrBlokn_sVrV
+                };
+                function func_zapuskBlokn_sVrV() {
+                    par_I_i=2;
+                    func_sendAj_sIrV(par_I_i);
+                }
+                function func_zakrBlokn_sVrV() {
+                    par_I_i=3;
+                    func_sendAj_sIrV(par_I_i);
+                }
+                ;
+
+                annyang.addCommands(commands);
+                annyang.setLanguage('ru'); // Устанавливаем русский язык 
+                annyang.start();
+            } else {
+                document.write("<h3>Похоже браузер не поддерживает голосовое Api</h3>");
+            }
+            function func_sendAj_sIrV(par_I_i) {
+                $.ajax(
+                        {url: 'http:localhost:5000/vizovSait_decode',
+                            type: 'POST',
+                            dataType: 'text',
+                            crossDomain: true,
+                            data: 'parWeb_znach=' +par_I_i,
+                            success: function (msg) {
+                                console.log(msg)
+                            },
+                            error: function (msg) {
+                                console.log(msg);
+                            }
+                        })
+            }
+
+        </script>
+    </body>
+</html>
