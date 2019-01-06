@@ -9,18 +9,34 @@
         <script>
             if (annyang) {
                 var commands = {
-                    "Запустить блокнот":func_zapuskBlokn_sVrV,
-                    "Закрыть блокнот": func_zakrBlokn_sVrV
+                    "начни":fu_BeginExec_sVrV,
+                    "заверши":fu_EndButToBeginExec_sVrV,
+                    "арифметика *expr": fu_arifExec_sSrV,
+                    "тригонометрический косинус":fu_UserFuncCosExec_sVrV,
+                    "возвращение":fu_printZregisr_sVrV
+                    
                 };
-                function func_zapuskBlokn_sVrV() {
-                    par_I_i=2;
-                    func_sendAj_sIrV(par_I_i);
+                function fu_BeginExec_sVrV(){
+                   alert('$');
+                   func_sendAj_sSSrV("$",'');
+                 }
+                 function fu_EndButToBeginExec_sVrV(){
+                   alert(')');
+                   func_sendAj_sSSrV(")",'');
+                 }
+                function fu_UserFuncCosExec_sVrV(){
+                   alert('cos');
+                   func_sendAj_sSSrV("userCos",'');
+                   }
+                function fu_arifExec_sSrV(expr){
+                   alert(expr);
+                   func_sendAj_sSSrV("arif",expr);
+                   } 
+                function fu_printZregisr_sVrV(){
+                   alert("z");
+                   func_sendAj_sSSrV("z",'');
                 }
-                function func_zakrBlokn_sVrV() {
-                    par_I_i=3;
-                    func_sendAj_sIrV(par_I_i);
-                }
-                ;
+                
 
                 annyang.addCommands(commands);
                 annyang.setLanguage('ru'); // Устанавливаем русский язык 
@@ -28,13 +44,14 @@
             } else {
                 document.write("<h3>Похоже браузер не поддерживает голосовое Api</h3>");
             }
-            function func_sendAj_sIrV(par_I_i) {
+            function func_sendAj_sSSrV(par_S_fuSexpr,par_S_restSexpr) {
+                //alert(par_S_fuSexpr+" "+par_S_restSexpr)
                 $.ajax(
                         {url: 'http:localhost:5000/vizovSait_decode',
                             type: 'POST',
                             dataType: 'text',
                             crossDomain: true,
-                            data: 'parWeb_znach=' +par_I_i,
+                            data: 'znachfuSexpr=' +par_S_fuSexpr+'&restSexpr='+par_S_restSexpr,
                             success: function (msg) {
                                 console.log(msg)
                             },

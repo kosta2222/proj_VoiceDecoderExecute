@@ -1,1 +1,2 @@
-start cmd /C %python363% main_server_decoder.py
+rem start cmd /C 
+%python363% main-server-decoder.py
